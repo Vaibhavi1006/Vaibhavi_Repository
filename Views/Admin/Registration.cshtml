@@ -60,10 +60,7 @@
         debugger
         var data = $("#myform").serialize();
 
-        if (!$("#myform").valid()) {
-            return false;
-        }
-
+        
         $.ajax({
             type: "Post",
             url: "/Admin/RegisterUser",
