@@ -1,0 +1,105 @@
+﻿@model Practical_test_application.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="col-md-3 col-md-offset-4">
+        <div style="border:5px black ridge; padding:10px;">
+            <form id="myform">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4 class="text-center">Login here</h4>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        Email: @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", @placeholder = "EmailID" })
+                        @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "error" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        Password: @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
+                        @ViewBag.ErrorMessage
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <a href="#" class="btn btn-info" onclick="LoginUser()">Submit</a>
+
+                    </div>
+                </div>
+
+                @Html.ActionLink("Logout", "Logout", "Admin")
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script>
+    var LoginUser = function () {
+        debugger
+        var data = $("#myform").serialize();
+
+      
+        $.ajax({
+            type: "POST",
+            url: "/Admin/LoginUser",
+            data: data,
+            success: function (response) {
+                debugger
+                if (response == "fail") {
+                    alert("Login failed");
+                    window.location.href = "/Admin/Login";
+                }
+                else if (response == "Admin") {
+                    alert("Login success");
+                    window.location.href = "/test/admin";
+
+                }
+                else {
+                    alert("Login success");
+                    window.location.href = "/User/User_home_page";
+                }
+            }
+        })
+    }
+</script>
+
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

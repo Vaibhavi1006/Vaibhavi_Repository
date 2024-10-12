@@ -1,0 +1,48 @@
+﻿@model Practical_test_application.Models.User_view_model
+
+<div>
+    <form id="myForm">
+        @Html.HiddenFor(m => m.ID)
+
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Phone" })
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email" })
+        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Password" })
+
+        <br />
+        <a href="#" id="btnSubmit" class="btn btn-info">
+            @if (Model.ID > 0)
+            {<span>Update</span>}
+            else
+            { <span>Save</span>}
+        </a>
+    </form>
+
+    <div style="text-align:center;display:none" id="loaderDiv">
+        <img src="~/images/loading_image.gif" width="150" />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            $("#loaderDiv").show();
+            debugger
+            var myformdata = $("#myForm").serialize();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Admin/EditUserInfo",
+                data: myformdata,
+                success: function () {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    window.location.href = "/Admin/EditUserInfo";
+
+                }
+            })
+        })
+    })
+</script>

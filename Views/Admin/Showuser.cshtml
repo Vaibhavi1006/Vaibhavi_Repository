@@ -1,0 +1,33 @@
+﻿@model Practical_test_application.Models.User_view_model
+@{
+    ViewBag.Title = "Showuser";
+
+}
+
+<h2>Showuser</h2>
+<div class="container" style="width:40%;margin-top:2%">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Password</th>
+           
+        </tr>
+        <tbody>
+            @if (ViewBag.UserList != null)
+            {
+                foreach (var item in ViewBag.UserList)
+                {
+                    <tr id="row_@item.ID">
+                        <td>@item.Name</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Email</td>
+                        <td>@item.Password</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <input type="hidden" id="hiddenEmployeeId" />
+</div>
