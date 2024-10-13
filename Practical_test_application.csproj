@@ -163,6 +163,7 @@
     <Compile Include="Models\UserCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\user_category.cs" />
     <Compile Include="Models\User_view_model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

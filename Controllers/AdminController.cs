@@ -22,10 +22,33 @@ namespace Practical_test_application.Controllers
 
         public ActionResult User_Registration()
         {
+            //app_databaseEntities5 db = new app_databaseEntities5();
+
+            //List<Department> list = db.Departments.ToList();
+            //ViewBag.departmentlist = new SelectList(list, "DepartmentID", "Department_name");
             return View();
         }
 
 
+        [HttpPost]
+        public ActionResult User_Registration(Registration model)
+        {
+            practical_test_dbEntities db = new practical_test_dbEntities();
+
+            User User = new User();
+
+            User.Name = model.Name;
+            User.Phone = model.Phone;
+            User.Email = model.Email;
+            User.Password = model.Password;
+            User.IsAdmin = false;
+            User.Isdeleted = false;
+
+            db.Users.Add(User);
+            db.SaveChanges();
+
+            return View(model);
+        }
         [HttpPost]
         public ActionResult LoginUser(LoginViewModel model)
         {
@@ -41,11 +64,13 @@ namespace Practical_test_application.Controllers
                 {
                     result = "Admin";
                     Session["UserName"] = User.Name;
+                    Session["UserId"] = User.Id;
                 }
                 else
                 {
                     result = "User";
                     Session["UserName"] = User.Name;
+                    Session["UserId"] = User.Id;
                 }
             }
             else
@@ -57,7 +82,7 @@ namespace Practical_test_application.Controllers
 
         public ActionResult Registration()
         {
-            if (Session["UserName"] == null)
+            if (Session["UserName"] == null || Session["UserName"].ToString() != "Admin")
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -236,7 +261,7 @@ namespace Practical_test_application.Controllers
 
         public ActionResult Admin_home()
         {
-            if (Session["UserName"] == null || Session["UserName"].ToString() != "Admin")
+              if (Session["UserName"] == null || Session["UserName"].ToString() != "Admin")
             {
                 return RedirectToAction("Login", "Admin");
             }

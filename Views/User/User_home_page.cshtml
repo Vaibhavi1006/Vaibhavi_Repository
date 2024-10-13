@@ -4,10 +4,29 @@
     Layout = null;
 }
 
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <h2><strong>Welcome @Session["UserName"]</strong></h2>
 
-<h2>Category Assigned</h2>
+<h2>Category Assigned </h2>
+
+
+<table class="table table-striped" style="width:60%">
+    <tr>
+        <th>Category Id</th>
+       
+    </tr>
+    <tbody>
+
+        @foreach (var item in ViewBag.UserList)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>
 
 
 
