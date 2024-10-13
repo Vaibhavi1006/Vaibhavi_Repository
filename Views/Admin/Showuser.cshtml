@@ -1,33 +1,78 @@
 ﻿@model Practical_test_application.Models.User_view_model
 @{
     ViewBag.Title = "Showuser";
-
+    Layout = null;
 }
 
-<h2>Showuser</h2>
-<div class="container" style="width:40%;margin-top:2%">
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Password</th>
-           
-        </tr>
-        <tbody>
-            @if (ViewBag.UserList != null)
-            {
-                foreach (var item in ViewBag.UserList)
-                {
-                    <tr id="row_@item.ID">
-                        <td>@item.Name</td>
-                        <td>@item.Phone</td>
-                        <td>@item.Email</td>
-                        <td>@item.Password</td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-    <input type="hidden" id="hiddenEmployeeId" />
-</div>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+
+        table, td {
+            border: 1px solid #b7b6b6;
+            padding: 10px;
+            background-color: white;
+            align-items: center;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        th {
+            border: 1px solid #b7b6b6;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #0dcaf0;
+            color: #ffffff;
+            padding: 10px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center; color: #7d7878; padding-top: 10px; ">User List</h2>
+
+    <div>
+        <div class="container" style="width:100%;margin-top:2%">
+            <table class="center">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Password</th>
+
+                </tr>
+                <tbody>
+                    @if (ViewBag.UserList != null)
+                    {
+                        foreach (var item in ViewBag.UserList)
+                        {
+                            <tr id="row_@item.ID">
+                                <td>@item.Name</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Email</td>
+                                <td>@item.Password</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" id="hiddenEmployeeId" />
+        </div>
+
+    </div>
+</body>
+</html>
+

@@ -25,28 +25,37 @@
         .error {
             color: red;
         }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 40px;
+        }
+        body{
+            background-color:ghostwhite;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="col-md-3 col-md-offset-4">
-        <div style="border:5px black ridge; padding:10px;">
+    <div class="col-md-4 col-md-offset-4 center" >
+        <div style=" border: 1px solid #b7b6b6;padding:10px; background-color:white">
             <form id="myform">
                 <div class="form-group">
                     <div class="col-md-12">
-                        <h4 class="text-center">Login here</h4>
+                        <h4 class="text-center" style="color: #0dcaf0; ">Login</h4>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        Email: @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", @placeholder = "EmailID" })
+                        Email @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", @placeholder = "EmailID" })
                         @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "error" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        Password: @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        Password @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
                         @ViewBag.ErrorMessage
 
@@ -54,12 +63,12 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-info" onclick="LoginUser()">Submit</a>
+                        <a href="#" class="btn btn-info" style="color:white; width:100%; margin-top:10px;" onclick="LoginUser()">Login</a>
 
                     </div>
                 </div>
 
-                @Html.ActionLink("Logout", "Logout", "Admin")
+           
             </form>
         </div>
     </div>
@@ -72,7 +81,7 @@
         debugger
         var data = $("#myform").serialize();
 
-      
+
         $.ajax({
             type: "POST",
             url: "/Admin/LoginUser",
@@ -85,7 +94,7 @@
                 }
                 else if (response == "Admin") {
                     alert("Login success");
-                    window.location.href = "/test/admin";
+                    window.location.href = "/Admin/Admin_home";
 
                 }
                 else {

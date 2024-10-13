@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Admin_home";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .row {
+            display: flex;
+            width: 100%;
+        }
+
+        body{
+            background-color:ghostwhite;
+        }
+            .row div {
+                width: 50%;
+            }
+
+        .noMargin {
+            margin: 0px;
+        }
+
+        .one {
+            padding: 50px;
+            margin: 10px;
+            background-color: #9497fd;
+            border-radius: 10px;
+            text-align: center;
+
+        }
+
+        .two {
+            padding: 50px;
+            margin: 10px;
+            background-color: #c4bcf9;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .three {
+            padding: 50px;
+            margin: 10px;
+            background-color: #e2acf7;
+            border-radius: 10px;
+            border-radius: 10px;
+           text-align:center;
+        }
+
+        .four {
+            padding: 50px;
+            margin: 10px;
+            background-color: #aff7a1;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .color{
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h3 style="text-align: center; color: #7d7878 "><strong>Welcome Admin @Session["UserName"]</strong></h3>
+
+        <div class="row noMargin">
+            <div class="one">
+                @Html.ActionLink("Create New User", "Registration", "Admin", new { @class = "color" })
+            </div>
+            <div class="two">
+                @Html.ActionLink("Show All Users Information", "Showuser", "Admin", new { @class = "color" })
+
+            </div>
+        </div>
+        <div class="row noMargin">
+            <div class="three">
+                @Html.ActionLink("Edit Update User's Information", "EditUserInfo", "Admin", new { @class = "color" })
+
+            </div>
+            <div class="four">
+                @Html.ActionLink("Logout", "Logout", "Admin", new { @class = "color" })
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

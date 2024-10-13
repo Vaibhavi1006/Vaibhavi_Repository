@@ -1,66 +1,104 @@
 ﻿@model Practical_test_application.Models.Registration
 @{
     ViewBag.Title = "Registration";
+    Layout = null;
 }
 
-<h2>Registration</h2>
+
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
-<script src="~/Scripts/jquery.validate.min.js"></script>
 
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<!DOCTYPE html>
 
-<div class="panel panel-body">
-    <div class="col-md-3">
-        <form id="myform">
-            <div class="col-md-12">
-                <h4>Register now</h4>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 40px;
+        }
+
+        .form {
+            padding-top: 10px;
+        }
+
+        body {
+            background-color: #e3f5fb;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="panel panel-body ">
+            <div class="col-md-3 center" style="border: 1px solid #7d7878; padding: 10px; margin-top: 20px; border-radius: 10px; background-color:ghostwhite">
+                <form id="myform">
+                    <div class="col-md-12 form">
+                        <h4 style="text-align: center; color: #7d7878;">Create New User</h4>
+                    </div>
+                    <div>
+                        <div class="col-md-12 form">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "UserName" })
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-12 form">
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Phone" })
+
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="col-md-12 form">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "EmailID" })
+
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="col-md-12 form">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+
+                        </div>
+
+                    </div>
+                   
+                        <div class="col-md-12 ">
+                            <div class="col-md-12 form">
+                                @Html.DropDownListFor(m => m.Category, ViewBag.Categorylist as SelectList, "---Select Category----", new { @class = "form-control" })
+
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="col-md-12 form">
+                                @Html.DropDownListFor(m => m.Sub_Category, new SelectList(""), "------select Sub_Category------", new { @class = "form-control" })
+
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <div class="col-md-12 form">
+                                <a href="#" class="btn btn-info" onclick="RegisterUser()" style="width:100%; color:#FFFFFF;">Sign Up</a>
+                            </div>
+                        </div>
+                </form>
             </div>
-            <div class="form-control">
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "UserName" })
-                </div>
-            </div>
-            <div class="form-control">
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Phone" })
-
-                </div>
-
-            </div>
-            <div class="form-control">
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "EmailID" })
-
-                </div>
-
-            </div>
-            <div class="form-control">
-                <div class="col-md-12">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
-
-                </div>
-
-            </div>
-
-            <div class="form-control">
-                <div class="col-md-12">
-                    <input type="submit" value="submit" class="btn btn-primary" style="width:100%" />
-
-                    <a href="#" class="btn btn-info" onclick="RegisterUser()">Submit</a>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</body>
+</html>
 
 <script>
     var RegisterUser = function () {
         debugger
         var data = $("#myform").serialize();
 
-        
+
         $.ajax({
             type: "Post",
             url: "/Admin/RegisterUser",
@@ -73,4 +111,30 @@
     }
 </script>
 
+<script>
+    $(document).ready(function () {
+        $("#Category").change(function () {
+            var CategoryId = $(this).val();
+            debugger
+            $.ajax({
+                type: "Post",
+                url: "/Admin/GetSubCategoryList?Id=" + CategoryId,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#Sub_Category").empty();
+                    $("#Sub_Category").append(response);
+
+
+                }
+            })
+        })
+    })
+</script>
+
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 

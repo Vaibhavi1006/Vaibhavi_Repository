@@ -10,7 +10,7 @@ namespace Practical_test_application.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Name")]
+        [Required(ErrorMessage = "Enter name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Please Enter Phone")]
@@ -22,8 +22,13 @@ namespace Practical_test_application.Models
         [Required(ErrorMessage = "Please Enter Password")]
         public string Password { get; set; }
 
+        public int Category { get; set; }
+        public int Sub_Category { get; set; }
 
 
         public Nullable<bool> IsAdmin { get; set; }
+
+
+
     }
 }

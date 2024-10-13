@@ -16,8 +16,11 @@ namespace Practical_test_application.Controllers
 
         public ActionResult User_home_page()
         {
+
             return View();
         }
+
+
 
     }
 }

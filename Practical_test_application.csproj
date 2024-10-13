@@ -240,9 +240,13 @@
     <Content Include="Views\Admin\EditUserInfo.cshtml" />
     <Content Include="Views\Admin\Partial2.cshtml" />
     <Content Include="Views\User\User_home_page.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Admin_home.cshtml" />
+    <Content Include="Views\Admin\Sub_Category_options.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Database\" />
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>

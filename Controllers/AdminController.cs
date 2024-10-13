@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -12,15 +13,18 @@ namespace Practical_test_application.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
 
         public ActionResult Login()
         {
             return View();
         }
+
+        public ActionResult User_Registration()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult LoginUser(LoginViewModel model)
@@ -57,15 +61,41 @@ namespace Practical_test_application.Controllers
             {
                 return RedirectToAction("Login", "Admin");
             }
+            practical_test_dbEntities db = new practical_test_dbEntities();
+
+            List<Category> list = db.Categories.ToList();
+            ViewBag.Categorylist = new SelectList(list, "Id", "Name");
+
             return View();
         }
 
-        [HttpPost]
+        public List<Category> GetCountry()
+        {
+            practical_test_dbEntities db = new practical_test_dbEntities();
+
+            List<Category> Categories = db.Categories.ToList();
+
+            return Categories;
+        }
+
+        public ActionResult GetSubCategoryList(int Id)
+        {
+            practical_test_dbEntities db = new practical_test_dbEntities();
+            List<SubCategory> Sub_category_List = db.SubCategories.Where(x => x.CategoryId == Id).ToList();
+
+            ViewBag.Sub_Category_options = new SelectList(Sub_category_List, "Id", "Name");
+
+            return PartialView("Sub_Category_options");
+        }
+    
+    [HttpPost]
         public JsonResult RegisterUser(Registration model)
         {
             practical_test_dbEntities db = new practical_test_dbEntities();
 
             User User = new User();
+
+            UserCategory usercategory = new UserCategory();
 
             User.Name = model.Name;
             User.Phone = model.Phone;
@@ -74,17 +104,22 @@ namespace Practical_test_application.Controllers
             User.IsAdmin = false;
             User.Isdeleted = false;
 
+           
             db.Users.Add(User);
             db.SaveChanges();
 
-
+            int latestUserId = User.Id;
+            usercategory.UserId = latestUserId;
+            usercategory.CategoryId = model.Category;
+            db.UserCategories.Add(usercategory);
+            db.SaveChanges();
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Showuser()
         {
             
-            if (Session["UserName"]== null)
+            if (Session["UserName"]== null || Session["UserName"].ToString() != "Admin")
             {
                
                 return RedirectToAction("Login", "Admin");
@@ -99,7 +134,7 @@ namespace Practical_test_application.Controllers
 
         public ActionResult EditUserInfo()
         {
-            if (Session["UserName"] == null)
+            if (Session["UserName"] == null || Session["UserName"].ToString() != "Admin")
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -197,6 +232,15 @@ namespace Practical_test_application.Controllers
         {
             Session.Abandon();
             return RedirectToAction("Login", "Admin");
+        }
+
+        public ActionResult Admin_home()
+        {
+            if (Session["UserName"] == null || Session["UserName"].ToString() != "Admin")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            return View();
         }
 
     }
