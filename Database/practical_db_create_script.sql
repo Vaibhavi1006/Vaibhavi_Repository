@@ -1,8 +1,8 @@
 USE [master]
 GO
 
-/****** Object:  Database [practical_test_db]    Script Date: 10/13/2024 10:50:26 AM ******/
-CREATE DATABASE [practical_test_do]
+/****** Object:  Database [practical_test_db]    Script Date: 10/13/2024 9:48:31 PM ******/
+CREATE DATABASE [practical_test_db]
  CONTAINMENT = NONE
  ON  PRIMARY 
 ( NAME = N'practical_test_db', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\practical_test_db.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
